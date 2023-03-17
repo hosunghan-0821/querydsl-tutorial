@@ -34,7 +34,8 @@ public class QueryDslTest {
 
 
         List<MemberTeamDto> memberList = queryFactory
-                .select(new QMemberTeamDto(member.id.as("memberId"),
+                .select(new QMemberTeamDto(
+                        member.id.as("memberId"),
                         member.username,
                         member.age,
                         team.id.as("teamId"),
@@ -45,11 +46,16 @@ public class QueryDslTest {
                 .fetch();
 
 
+        //Dto 조합할 대 유용할거 같은데?
+
          List<MemberTeamClassDto> testasd = queryFactory.select(new QMemberTeamClassDto(
                         member.id.as("memberId"),
                         member.username,
                         member.age,
-                         ExpressionUtils.as(JPAExpressions.select())
+                        new QTeamSlimDto(
+                                member.team.id,
+                                member.team.name
+                        )
 
                 ))
                 .from(member)
