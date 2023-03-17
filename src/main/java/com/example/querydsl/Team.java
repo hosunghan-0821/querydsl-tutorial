@@ -1,5 +1,6 @@
 package com.example.querydsl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class Team {
     @Column(name = "team_id")
     private Long id;
     private String name;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
     public Team(String name) {
